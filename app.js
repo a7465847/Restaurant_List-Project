@@ -1,22 +1,26 @@
-// 載入express
-const express = require('express')
-const app = express()
-
-// 載入handlebars  並設定樣板引擎
 const exphbs = require('express-handlebars')
+const express = require('express')
+const restaurantList = require('./restaurant.json')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const app = express()
+const port = 3000
+
+mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
+const db = mongoose.connect
+db.on('error', () => {
+  console.log('mongodb error')
+})
+db.once('open', () => {
+  console.log('mongodb conneted')
+})
+
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// 載入restaurant.json
-const restaurantList = require('./restaurant.json')
-
-// 設定port
-const port = 3000
-
-// 先讀取靜態網頁
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: true }))
 
-// 設定首頁 並且使用render
 app.get('/', (req, res) => {
   res.render('index', { restaurant: restaurantList.results })
 })
