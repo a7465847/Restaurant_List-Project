@@ -1,6 +1,5 @@
 const exphbs = require('express-handlebars')
 const express = require('express')
-const restaurantList = require('./restaurant.json')
 const Restaurant = require('./models/restaurant.js')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
@@ -33,8 +32,8 @@ app.get('/', (req, res) => {
 // 新增餐廳內容 web新增餐廳(get) → create page → 餐廳表單(post) → 資料存入database → 渲染('/')
 app.get('/create', (req, res) => res.render('create'))
 app.post('/createList', (req, res) => {
-  if (!req.body.restaurantImage) {
-    req.body.image = 'https://via.placeholder.com/600x300.png?text=Restaurants'
+  if (!req.body.image) {
+    req.body.image = 'https://dummyimage.com/600x300/096969/0ffabb.png&text=Restaurant'
   }
   const restaurant = req.body
   return Restaurant.create(restaurant)
@@ -83,10 +82,15 @@ app.post('/restaurants/:id/delete', (req, res) => {
 // 搜尋
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
-  const restaurant = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword.trim().toLowerCase()) || restaurant.category.toLowerCase().includes(keyword.trim().toLowerCase())
-  })
-  res.render('index', { restaurant: restaurant, keyword: keyword })
+  Restaurant.find()
+    .lean()
+    .then(restaurant => {
+      const searchRestaurant = restaurant.filter(restaurant => {
+        return restaurant.name.toLowerCase().includes(keyword.trim().toLowerCase()) || restaurant.category.toLowerCase().includes(keyword.trim().toLowerCase())
+      })
+      res.render('index', { restaurant: searchRestaurant, keyword: keyword })
+    })
+    .catch(error => console.error(error))
 })
 
 app.listen(port, () => {
