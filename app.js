@@ -22,6 +22,7 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// 透過models 取出資料傳給 index 樣板
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
@@ -29,9 +30,8 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
-// 建立餐廳內容
+// 建立餐廳內容 web新增餐廳(get) → 餐廳表單(post) → database → 渲染('/')
 app.get('/create', (req, res) => res.render('create'))
-
 app.post('/createList', (req, res) => {
   if (!req.body.restaurantImage) {
     req.body.image = 'https://via.placeholder.com/600x300.png?text=Restaurants'
@@ -41,6 +41,14 @@ app.post('/createList', (req, res) => {
   return Restaurant.create(restaurant)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
+})
+
+// 建立瀏覽特定內容
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('show', { restaurant }))
 })
 
 app.get('/restaurants/:restaurant_id', (req, res) => {
