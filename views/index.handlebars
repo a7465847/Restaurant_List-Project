@@ -34,15 +34,12 @@
                   <i class="fas fa-star fa-xs"></i>
                 </span>
               </div>
-              <div class="d-flex flex-row-reverse">
-                <span class="badge badge-pill badge-danger font-weight-normal ml-2">
-                  <i class="far fa-edit"></i>
-                </span>
-                <span class="badge badge-pill badge-danger font-weight-normal ">
-                  <i class="far fa-trash-alt"></i>
-                </span>
-                <a href="/restaurants/{{this._id}}/edit" class="mr-2"><i class="far fa-edit"></i></a>
-                <a href="/" class="mr-2"><i class="far fa-trash-alt"></i></a>
+              <div class="d-flex justify-content-end">
+                <a href="/restaurants/{{this._id}}/edit" class="mr-2" title="編輯"><i
+                    class="far fa-edit text-primary"></i></a>
+                <button type="button" style="border: none; background: transparent;"
+                  class="fas fa-trash text-primary " data-toggle="modal"
+                  data-target="#deleteModal-{{this._id}}"></button>
               </div>
             </div>
           </div>
@@ -52,3 +49,25 @@
     </div>
   </div>
 </div>
+
+
+<!-- Modal -->
+{{#each restaurant}}
+<div class="modal fade" id="deleteModal-{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header d-flex flex-wrap">
+        <img class="card-img-top" src="{{this.image}}" style="max-width: 300; max-height: 300px;">
+        <h5 class="modal-title" style="margin: 0 auto">即將刪除 <strong>{{this.name}}</strong> </h5>
+      </div>
+      <div class="modal-footer bg-info">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <form action="/restaurants/{{this._id}}/delete" method="POST">
+          <button type="submit" class="btn btn-danger">確認刪除</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{/each}}
