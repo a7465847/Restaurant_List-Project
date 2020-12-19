@@ -49,14 +49,27 @@ app.get('/restaurants/:id', (req, res) => {
   return Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
 })
 
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  console.log(req.params.restaurant_id)
-  const restaurant = restaurantList.results.find(restaurant => {
-    return restaurant.id.toString() === req.params.restaurant_id
-  })
-  res.render('show', { restaurant: restaurant })
+// 修改餐廳內容 web編輯紐(get) → edit paga → 表單(post) → database找該ID、將修改資料存進去 → 渲染
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  const options = req.body
+  return Restaurant.findById(id)
+    .then(restaurant => {
+      restaurant = Object.assign(restaurant, options)
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(error => console.log(error))
 })
 
 app.get('/search', (req, res) => {
