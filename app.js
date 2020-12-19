@@ -30,20 +30,19 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
-// 建立餐廳內容 web新增餐廳(get) → 餐廳表單(post) → database → 渲染('/')
+// 新增餐廳內容 web新增餐廳(get) → create page → 餐廳表單(post) → 資料存入database → 渲染('/')
 app.get('/create', (req, res) => res.render('create'))
 app.post('/createList', (req, res) => {
   if (!req.body.restaurantImage) {
     req.body.image = 'https://via.placeholder.com/600x300.png?text=Restaurants'
   }
   const restaurant = req.body
-  console.log(restaurant)
   return Restaurant.create(restaurant)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
-// 建立瀏覽特定內容
+// 瀏覽特定內容
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -52,7 +51,7 @@ app.get('/restaurants/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// 修改餐廳內容 web編輯紐(get) → edit paga → 表單(post) → database找該ID、將修改資料存進去 → 渲染
+// 修改餐廳內容 web編輯紐(get) → edit page → 表單(post) → database找該ID、將修改資料存進去 → 渲染
 app.get('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
