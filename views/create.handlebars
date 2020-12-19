@@ -1,0 +1,51 @@
+<div class="container bg-info text-dark">
+  <form action="/createList" method="POST">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="name">Restaurant Name</label>
+        <input type="text" name="name" placeholder="輸入餐廳名稱" class="form-control">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="category">Category</label>
+        <select id="category" class="form-control" name="category">
+          <option>選擇餐廳類型</option>
+          <option>泰式料理</option>
+          <option>中東料理</option>
+          <option>日本料理</option>
+          <option>義式餐廳</option>
+          <option>中式餐廳</option>
+          <option>美式餐廳</option>
+          <option>吃到飽</option>
+          <option>早午餐</option>
+          <option>其他</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="name">Restaurant Address</label>
+        <input type="text" name="location" placeholder="輸入餐廳地址" class="form-control">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="name">Restaurant Phone</label>
+        <input type="text" name="phone" placeholder="輸入餐廳電話" class="form-control">
+      </div>
+      <div class="form-group col-md-12">
+        <label for="name">Restaurant Image</label>
+        <input type="text" name="image" placeholder="輸入餐廳照片(限定.jpg or .png)" class="form-control">
+      </div>
+      <div class="form-group col-md-12">
+        <label for="name">Restaurant Google Map</label>
+        <input type="text" name="google_map" placeholder="輸入餐廳 Google Map 網址" class="form-control">
+      </div>
+      <div class="form-group col-md-12">
+        <label for="name">Restaurant Description</label>
+        <input type="text" name="description" placeholder="輸入餐廳故事或餐點特色" class="form-control">
+      </div>
+      <div class="form-group col-md-10 justify-content-start" style="margin-top: 10px;">
+        <button type="submit" class="btn btn-warning">Submit</button>
+        <a href="/">
+          <button type="button" class="btn btn-warning ml-3">Back</button>
+        </a>
+      </div>
+    </div>
+  </form>
+</div>
