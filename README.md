@@ -31,7 +31,7 @@
 
 3. 查看專案內 package.json 檔案需安裝的npm套件
    ```
-   npm i <package>
+   npm install 
    ```
 
 4. 安裝 nodemon 套件 (本地未安裝  請執行此步驟)
@@ -46,7 +46,7 @@
 
 6. 啟動伺服器，執行 app.js 檔案
    ```
-   npm run dev
+   npm run dev or npm run start
    ```
 
 7. 終端機回應以下內容 代表代表可執行

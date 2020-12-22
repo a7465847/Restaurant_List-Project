@@ -3,6 +3,7 @@ const express = require('express')
 const Restaurant = require('./models/restaurant.js')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 const app = express()
 const port = 3000
 
@@ -20,6 +21,7 @@ app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 // 透過models 取出資料傳給 index 樣板
 app.get('/', (req, res) => {
@@ -58,7 +60,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .then(restaurant => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
 })
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   const options = req.body
   return Restaurant.findById(id)
@@ -71,7 +73,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 // 刪除
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())
