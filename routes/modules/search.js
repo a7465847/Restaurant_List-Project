@@ -3,7 +3,7 @@ const router = express.Router()
 const Restaurant = require('../../models/restaurant.js')
 
 // 搜尋
-router.get('/search', (req, res) => {
+router.get('/', (req, res) => {
   const keyword = req.query.keyword
   Restaurant.find()
     .lean()

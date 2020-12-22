@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Restaurant = require('../../models/restaurant.js')
 
+// 新增餐廳內容 web新增餐廳(get) → create page → 餐廳表單(post) → 資料存入database → 渲染('/')
 router.get('/create', (req, res) => res.render('create'))
 router.post('/createList', (req, res) => {
   if (!req.body.image) {
@@ -22,7 +23,7 @@ router.get('/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// 修改餐廳內容 web編輯紐(get) → edit page → 表單(post) → database找該ID、將修改資料存進去 → 渲染
+// 修改餐廳內容 web編輯紐(get) → edit page → 表單(put)) → database找該ID、將修改資料存進去 → 渲染
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
