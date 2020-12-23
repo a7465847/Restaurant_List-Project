@@ -1,7 +1,7 @@
 <div class="container search-bar ">
   <div class="search-bar-outer">
-    <div class="search-bar-inner">
-      <form action="/search">
+    <div class="search-bar-inner d-flex">
+      <form action="/search" class="col-md-10">
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
           <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
@@ -11,6 +11,12 @@
           </div>
         </div>
       </form>
+      <div class="dropdown col-md-3 d-flex align-self-end p-2" style="p">
+        <button type="button" style="border: none; background: transparent;"
+          class="btn btn-outline-dark fas fa-filter text-primary " data-toggle="modal" data-target="#deleteModal">
+          排序方式
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -39,7 +45,8 @@
                     class="far fa-edit text-primary"></i></a>
                 <button type="button" style="border: none; background: transparent;"
                   class="btn btn-outline-dark fas fa-trash text-primary " data-toggle="modal"
-                  data-target="#deleteModal-{{this._id}}"></button>
+                  data-target="#deleteModal-{{this._id}}">
+                </button>
               </div>
             </div>
           </div>
@@ -71,3 +78,33 @@
   </div>
 </div>
 {{/each}}
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="pt-3" style="text-align:center; width:90%">排序與篩選</h5>
+      </div>
+      <form action="/" method="GET" style="font-size:1.5em">
+        <div class="row">
+          <div class="col-md-5 ml-5 pt-2">
+            <select class="form-control" name="sorting">
+              <option value="ratingAsc" {{#sortMethod type 'ratingAsc' }} selected {{/sortMethod}}>超夯評價</option>
+              <option value="timeAsc" {{#sortMethod type 'timeAsc' }} selected {{/sortMethod}}>最新收錄</option>
+              <option value="timeDesc" {{#sortMethod type 'timeDesc' }} selected {{/sortMethod}}>過往回憶</option>
+              <option value="nameAsc" {{#sortMethod type 'nameAsc' }} selected {{/sortMethod}}>排序 A->Z</option>
+              <option value="nameDesc"> {{#sortMethod type 'nameDesc'}} selected {{/sortMethod}}排序 Z->A</option>
+            </select>
+          </div>
+          <div class="col-md-5 ml-3 pt-2 ">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
+            <button type="submit" class="btn btn-primary">Close</button>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
