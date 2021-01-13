@@ -87,24 +87,38 @@
       <div class="modal-header">
         <h5 class="pt-3" style="text-align:center; width:90%">排序與篩選</h5>
       </div>
-      <form action="/" method="GET" style="font-size:1.5em">
+      <form class="mb-3" action="/restaurants" method="GET" style="font-size:1.5em">
         <div class="row">
           <div class="col-md-5 ml-5 pt-2">
-            <select class="form-control" name="sorting">
-              <option value="ratingAsc" {{#sortMethod type 'ratingAsc' }} selected {{/sortMethod}}>超夯評價</option>
-              <option value="timeAsc" {{#sortMethod type 'timeAsc' }} selected {{/sortMethod}}>最新收錄</option>
-              <option value="timeDesc" {{#sortMethod type 'timeDesc' }} selected {{/sortMethod}}>過往回憶</option>
-              <option value="nameAsc" {{#sortMethod type 'nameAsc' }} selected {{/sortMethod}}>排序 A->Z</option>
-              <option value="nameDesc"> {{#sortMethod type 'nameDesc'}} selected {{/sortMethod}}排序 Z->A</option>
+
+            <select class="form-control" id="sort" name="sort" onchange="this.form.submit()">
+              <option value="">排序方式</option>
+              <option value="name_asc" {{#is sort "name_asc" }} selected {{/is}}>A->Z</option>
+              <option value="name_desc" {{#is sort "name_desc" }} selected {{/is}}>Z->A</option>
+              <option value="category" {{#is sort "category" }} selected {{/is}}>餐廳類型</option>
+              <option value="location" {{#is sort "location" }} selected {{/is}}>地區</option>
+              <option value="rating" {{#is sort "rating" }} selected {{/is}}>評分</option>
             </select>
-          </div>
-          <div class="col-md-5 ml-3 pt-2 ">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
-            <button type="submit" class="btn btn-primary">Close</button>
+
           </div>
           <div class="modal-footer"></div>
         </div>
       </form>
+      {{!-- <form action="/restaurants" method="GET"
+        class="row mb-3 d-flex justify-content-end justify-content-md-center">
+        <div class="col-5 col-md-3">
+          <select class="form-control" id="sort" name="sort" onchange="this.form.submit()">
+            <option value="">排序方式</option>
+            <option value="name_asc" {{#is sort "name_asc" }} selected {{/is}}>A->Z</option>
+            <option value="name_desc" {{#is sort "name_desc" }} selected {{/is}}>Z->A</option>
+            <option value="category" {{#is sort "category" }} selected {{/is}}>餐廳類型</option>
+            <option value="location" {{#is sort "location" }} selected {{/is}}>地區</option>
+            <option value="rating" {{#is sort "rating" }} selected {{/is}}>評分：高到低</option>
+          </select>
+          {{!-- 如果使用者關閉瀏覽器 JavaScript 功能才會跳出--}}
+          <noscript><input type="submit">此選項需要使用到 JavaScript，請開啟 JavaScript 以進一步使用。</noscript>
+        </div>
+      </form> --}}
     </div>
   </div>
 </div>

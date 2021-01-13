@@ -3,8 +3,8 @@ const router = express.Router()
 const Restaurant = require('../../models/restaurant.js')
 
 // 新增餐廳內容 web新增餐廳(get) → create page → 餐廳表單(post) → 資料存入database → 渲染('/')
-router.get('/create', (req, res) => res.render('create'))
-router.post('/createList', (req, res) => {
+router.get('/new', (req, res) => res.render('new'))
+router.post('/', (req, res) => {
   if (!req.body.image) {
     req.body.image = 'https://dummyimage.com/600x300/096969/0ffabb.png&text=Restaurant'
   }
@@ -50,6 +50,33 @@ router.delete('/:id', (req, res) => {
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
+})
+
+router.get('/', (req, res) => {
+  const sort = req.query.sort
+  let order = {}
+  switch (sort) {
+    case 'name_asc':
+      order = { name: 'asc' }
+      break
+    case 'name_desc':
+      order = { name: 'desc' }
+      break
+    case 'category':
+      order = { category: 'asc' }
+      break
+    case 'location':
+      order = { location: 'asc' }
+      break
+    case 'rating':
+      order = { rating: 'desc' }
+      break
+  }
+  Restaurant.find()
+    .lean()
+    .sort(order)
+    .then(restaurant => res.render('index', { restaurant, sort }))
+    .catch(error => console.error(error))
 })
 
 module.exports = router
