@@ -25,32 +25,43 @@ body {
 .fa-facebook-square {
   font-size: 60px;
   margin-left: 10px;
-  color: #087AEA;
+  color: #087aea;
 }
 .fa-google-plus-square {
   font-size: 60px;
   margin-left: 10px;
-  /* color: linear-gradient(134deg, #415B96, #6D4BFA); */
 }
-.fa-google-plus-square::before{
-    /* background: -webkit-gradient(linear, left top, left bottom, from(#415B96), to(#6D4BFA)); */
-    background: linear-gradient(to top, #3f51b1 0%, #5a55ae 13%, #7b5fac 25%, #8f6aae 38%, #a86aa4 50%, #cc6b8e 62%, #f18271 75%, #f3a469 87%, #f7c978 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: initial;
+.fa-google-plus-square::before {
+  background: linear-gradient(
+    to top,
+    #3f51b1 0%,
+    #5a55ae 13%,
+    #7b5fac 25%,
+    #8f6aae 38%,
+    #a86aa4 50%,
+    #cc6b8e 62%,
+    #f18271 75%,
+    #f3a469 87%,
+    #f7c978 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: initial;
 }
 
 .fa-twitter-square {
   font-size: 60px;
   margin-left: 10px;
-  color: #1DA1F2;
+  color: #1da1f2;
 }
 
 .social_icon span:hover {
   color: white;
   cursor: pointer;
 }
-
+.animate__animated.animate__fadeInRightBig {
+    --animate-duration: 1.5s;
+  }
 .card-header h3 {
   color: white;
 }
