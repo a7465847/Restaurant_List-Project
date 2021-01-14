@@ -8,17 +8,21 @@ const hbshelpers = require('handlebars-helpers')
 const comparison = hbshelpers.comparison()
 const flash = require('connect-flash')
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
 app.engine('hbs', exphbs({ helpers: comparison, defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false, // true 強制與使用者互動後 session to add session store
   saveUninitialized: true // 登入前先追蹤使用者
 }))
