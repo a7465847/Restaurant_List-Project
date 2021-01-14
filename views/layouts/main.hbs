@@ -19,21 +19,23 @@
 </head>
 
 <body>
-  {{#if isAuthenticated }} {{/if}}
   <header>
-    <nav class="navbar navbar-light bg-light justify-content-between">
+    <nav class="navbar navbar-secondary  bg-light justify-content-between">
       <a class="navbar-brand d-flex" href="/">
-        <img src="https://i.imgur.com/hLJ2XGU.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="我的餐廳清單">
+        <img src="https://i.imgur.com/hLJ2XGU.png" width="30" height="30" class="d-inline-block align-top mr-2"
+          alt="我的餐廳清單">
         {{ user.name }} &ensp;-&ensp;
         <h5 class="m-auto animate__animated animate__bounce">Eat 主廚收藏家</h5>
       </a>
+      {{#if isAuthenticated }}
       <div class="d-flex justify-content-between">
         <a class="btn btn-outline-light bg-info mr-3" href="/restaurants/new">新增餐廳資訊</a>
         <a class="btn btn-outline-light bg-info " href="/users/logout">Logout</a>
       </div>
+      {{/if}}
     </nav>
   </header>
- 
+
 
   {{{body}}}
 
