@@ -2,17 +2,31 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const restaurantSchema = new Schema({
   name: {
-    type: String, // 類別字串
-    require: true // 必填
+    type: String,
+    require: true
   },
-  name_en: { type: String },
-  category: { type: String },
-  image: { type: String },
-  location: { type: String },
-  phone: { type: String },
-  google_map: { type: String },
-  rating: { type: String },
-  description: { type: String }
+  category: {
+    type: String,
+    require: true
+  },
+  location: {
+    type: String,
+    require: true
+  },
+  phone: {
+    type: String,
+    require: true
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    require: true
+  },
+  name_en: String,
+  image: String,
+  google_map: String,
+  rating: Number,
+  description: String
 })
-
 module.exports = mongoose.model('Restaurant', restaurantSchema)

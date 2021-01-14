@@ -9,44 +9,51 @@ router.post('/', (req, res) => {
     req.body.image = 'https://dummyimage.com/600x300/096969/0ffabb.png&text=Restaurant'
   }
   const restaurant = req.body
-  return Restaurant.create(restaurant)
+  const userId = req.user._id
+  return Restaurant.create({ ...restaurant, userId })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
 // 瀏覽特定內容
 router.get('/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-    .lean()
-    .then(restaurant => res.render('show', { restaurant }))
-    .catch(error => console.log(error))
+  const _id = req.params.id
+  const userId = req.user._id
+  return Restaurant.findOne({ _id, userId }).lean()
+    .then(restaurant => {
+      res.render('show', { restaurant: restaurant })
+    })
+    .catch(err => console.error(err))
 })
 
 // 修改餐廳內容 web編輯紐(get) → edit page → 表單(put)) → database找該ID、將修改資料存進去 → 渲染
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-    .lean()
-    .then(restaurant => res.render('edit', { restaurant }))
-    .catch(error => console.log(error))
+  const userId = req.user._id
+  const _id = req.params.id
+
+  Restaurant.findOne({ _id, userId }).lean()
+    .then(restaurant => res.render('edit', { restaurant: restaurant }))
+    .catch(err => console.error(err))
 })
+
 router.put('/:id', (req, res) => {
-  const id = req.params.id
   const options = req.body
-  return Restaurant.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  return Restaurant.findOne({ userId, _id })
     .then(restaurant => {
       restaurant = Object.assign(restaurant, options)
       return restaurant.save()
     })
-    .then(() => res.redirect(`/restaurants/${id}`))
+    .then(() => res.redirect(`/restaurants/${_id}`))
     .catch(error => console.log(error))
 })
 
 // 刪除
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  return Restaurant.findOne({ userId, _id })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
