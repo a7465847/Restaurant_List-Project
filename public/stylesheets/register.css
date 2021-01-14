@@ -35,7 +35,7 @@ body {
 
 
 
-.header > h2 {
+.header > h3 {
   margin: 0;
   color: #4f46a5;
 }
@@ -92,7 +92,7 @@ body {
   animation-name: move;
   animation-duration: .4s;
   animation-fill-mode: both;
-  animation-delay: 2s;
+  animation-delay: 1s;
 }
 
 .a1 {
