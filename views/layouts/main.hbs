@@ -19,20 +19,21 @@
 </head>
 
 <body>
-  {{#is userCSS 'the'}}{{/is}}
+  {{#if isAuthenticated }}
   <header>
     <nav class="navbar navbar-light bg-light justify-content-between">
       <a class="navbar-brand d-flex" href="/">
         <img src="https://i.imgur.com/hLJ2XGU.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="我的餐廳清單">
+        {{ user.name }} &ensp;-&ensp;
         <h5 class="m-auto animate__animated animate__bounce">Eat 主廚收藏家</h5>
       </a>
       <div class="d-flex justify-content-between">
         <a class="btn btn-outline-light bg-info mr-3" href="/restaurants/new">新增餐廳資訊</a>
-        <a class="btn btn-outline-light bg-info " href="/users/login">登入</a>
+        <a class="btn btn-outline-light bg-info " href="/users/login">Logout</a>
       </div>
     </nav>
   </header>
-
+  {{/if}}
 
   {{{body}}}
 
