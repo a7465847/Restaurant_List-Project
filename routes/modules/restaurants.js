@@ -80,7 +80,7 @@ router.get('/', (req, res) => {
       order = { rating: 'desc' }
       break
   }
-  Restaurant.find({ userId: { $eq: userId } })
+  Restaurant.find({ userId })
     .lean()
     .sort(order)
     .then(restaurant => res.render('index', { restaurant, sort }))
