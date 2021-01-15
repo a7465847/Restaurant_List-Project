@@ -61,6 +61,7 @@ router.delete('/:id', (req, res) => {
 
 router.get('/', (req, res) => {
   const sort = req.query.sort
+  const userId = req.user._id
   let order = {}
   switch (sort) {
     case 'name_asc':
@@ -79,7 +80,7 @@ router.get('/', (req, res) => {
       order = { rating: 'desc' }
       break
   }
-  Restaurant.find()
+  Restaurant.find({ userId: { $eq: userId } })
     .lean()
     .sort(order)
     .then(restaurant => res.render('index', { restaurant, sort }))
